@@ -1,0 +1,60 @@
+<body class="atras text-white">
+    <%- include('../includes/header.ejs', {titulo: 'Lista de Categorias'}) %>
+<body>
+    <main>
+        <h2 class="text-center">Lista de Categorias</h2>
+        <a href="/categorias/novo" class="btn btn-primary bVer border-dark">Adicionar Categoria</a>
+        <% if (typeof mensagem != 'undefined') { %>
+            <p class="erro"><%= mensagem %></p>
+        <% } %>
+        
+            <div class="col-12">
+                <form action="/categorias/" method="get" class="d-flex justify-content-center gap-3">
+                    <input type="text" class="form-control w-25" name="busca" placeholder="Buscar categoria" value="<%=busca%>">
+                    <button type="submit" class="w-10 btn btn-primary bVer border-black">Buscar</button>
+                    <select class="form-control w-25" name="ordenar" onchange="this.form.submit()" class="w-50">
+                        <option value="nome_categoria asc" <%= ordenar == 'nome_categoria asc' ? 'selected' : '' %>>Ordenar de forma crescente</option>
+                        <option value="nome_categoria desc" <%= ordenar == 'nome_categoria desc' ? 'selected' : '' %>>Ordenar de forma decrescente</option>
+                        
+                        
+                    </select>
+                </form>
+            </div>
+    
+
+  
+        <table class="dados-table">
+            <thead class="bg-light">
+                <tr class="text-black">
+                    <th scope="col">Nome</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let categoria of categorias) { %>
+                    <tr>
+                        <td><%= categoria.nome_categoria %></td>
+                        <td class="d-flex">
+                            <a href="/categorias/<%= categoria.id_categoria %>/editar" class="btn btn-primary bVer border-black btamanho">Editar</a>
+                            <form action="/categorias/<%= categoria.id_categoria %>/deletar" method="post" onsubmit="return confirmDelete()">
+                                <button type="submit" class="btn btn-danger bEx border-black">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <% if (pgAtual > 1) { %>
+                <a href="/categorias?pg=<%= pgAtual-1 %>">Anterior</a>
+            <% } %>
+            <span>Página <%= pgAtual %> de <%= totalPgs %></span>
+            <% if (pgAtual < totalPgs) { %>
+                <a href="/categorias?pg=<%= pgAtual+1 %>">Próxima</a>
+            <% } %>
+        </div>
+    </main>
+</body>
+<%- include('../includes/footer.ejs') %>
+</body>
+

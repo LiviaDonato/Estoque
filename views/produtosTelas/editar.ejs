@@ -1,0 +1,207 @@
+<%- include('../includes/header.ejs', {titulo: 'Editar Produto' }) %>
+
+    <body class="atras text-white">
+        <main>
+            <h2 class="text-white">Editando Produto</h2>
+
+            <div class="container">
+                <!-- Tab Navigation -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active text-white" data-bs-toggle="tab" data-bs-target="#editar"
+                            type="button" aria-controls="editar" aria-selected="true">
+                            Editar Produto
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link text-white" data-bs-toggle="tab" data-bs-target="#lancar-movimentacoes"
+                            type="button" aria-controls="lancar-notas" aria-selected="false">
+                            Lançar Movimentação
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link text-white" id="notas-tab" data-bs-toggle="tab"
+                            data-bs-target="#movimentacoes" type="button" aria-controls="notas" aria-selected="false">
+                            Movimentações
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link text-white" id="notas-tab" data-bs-toggle="tab"
+                            data-bs-target="#grafico" type="button" aria-controls="notas" aria-selected="false">
+                            Gráfico
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="myTabContent">
+                    <!-- Aba para Editar o Produto -->
+                    <div class="tab-pane fade show active p-3" id="editar">
+                        <h4 class="text-white"> Tela de edição </h4>
+                        <form action="/produtos/<%= produto.id_produto %>/editar" method="post" class="form text-dark">
+                            <div class="form-group">
+                                <label for="nome_produto">Nome do produto: </label>
+                                <input type="text" id="nome_produto" name="nome_produto" value="<%= produto.nome_produto %>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="estoque">Estoque atual: </label>
+                                <input type="number" id="estoque" name="estoque" value="<%= produto.estoque %>"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="estoque_minimo">Estoque minímo: </label>
+                                <input type="number" id="estoque_minimo" name="estoque_minimo"
+                                    value="<%= produto.estoque_minimo %>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="valor">Valor: </label>
+                                <input type="number" id="valor" name="valor" value="<%= produto.valor %>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_categoria">Categoria: </label>
+                                <select name="id_categoria" id="id_categoria">
+                                    <option value="">Selecione uma categoria</option>
+                                    <% for (let categoria of categoriasCadastradas) { %>
+                                        <option value="<%= categoria.id_categoria %>" selected > <%= categoria.nome_categoria %>  </option> 
+                    
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="imagem">Imagem: </label>
+                                <input type="url" id="imagem" name="imagem" value="<%= produto.imagem %>" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary bAdi border-white"> Salvar alterações
+                            </button>
+                            <a href="/produtos" class="btn btn-secondary bEx border-white"> Cancelar </a>
+                            <% if (typeof mensagem !='undefined' ) { %>
+                                <p class="erro">
+                                    <%= mensagem %>
+                                </p>
+                                <% } %>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade p-3" id="lancar-movimentacoes">
+                        <h4 class="text-white">Tela para lançar movimentações</h4>
+                        <form action="/produtos/<%= produto.id_produto %>/lancar-movimentacoes" method="post"
+                            class="form">
+                            <div class="form-group">
+                                <label for="movimentacao">Tipo de movimentação:</label>
+                                <select id="tipo_movimentacao" name="tipo_movimentacao">
+                                    <option value="E">Entrada</option>
+                                    <option value="S">Saída</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="estoque">Estoque atual: </label>
+                                <input type="number" id="estoque" name="estoque" value="<%= produto.estoque %>"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quantidade">Quantidade: </label>
+                                <input type="number" id="quantidade" name="quantidade">
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao">Descrição: </label>
+                                <input type="text" id="descricao" name="descricao">
+                            </div>
+                            <button type="submit" class="btn btn-primary bAdi border-white"> Salvar alterações
+                            </button>
+                            <a href="/produtos" class="btn btn-secondary bEx border-white"> Cancelar </a>
+                            <% if (typeof mensagem !='undefined' ) { %>
+                                <p class="erro">
+                                    <%= mensagem %>
+                                </p>
+                                <% } %>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade p-3" id="movimentacoes">
+                        <h4 class="text-white">Movimentações</h4>
+                        <table class="dados-table text-white">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Movimentação</th>
+                                    <th>Data</th>
+                                    <th>Quantidade</th>
+                                    <th>Descrição</th>
+                                    <th>Estoque</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let movimentacao of vetorDados) { %>
+                                    <tr>
+                                        <td>
+                                            <%= movimentacao.tipo_movimentacao %>
+                                        </td>
+                                        <td>
+                                            <%= movimentacao.data %>
+                                        </td>
+                                        <td>
+                                            <%= movimentacao.quantidade %>
+                                        </td>
+                                        <td>
+                                            <%= movimentacao.descricao %>
+                                        </td>
+                                        <% if (movimentacao.estoque - movimentacao.quantidade >= movimentacao.estoque_minimo) { %>
+                                            <td class="text-success">
+                                                <%= movimentacao.estoque - movimentacao.quantidade %>
+                                            </td>
+                                            <% } %>
+                                                <% if (movimentacao.estoque - movimentacao.quantidade <produto.estoque_minimo) { %>
+                                                    <td class="text-danger">
+                                                        <%= movimentacao.estoque - movimentacao.quantidade %>
+                                                    </td>
+                                                    <% } %>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade p-3" id="grafico">
+                        <h4 class="text-white">Gráfico</h4>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm border-black">
+                                <div class="card-header bVer text-white">
+                                    Estoque Minimo
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="linhaEstoque"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <script>
+    const dadosEstoqueMov = <%- JSON.stringify(estoqueM) %>
+
+    // Extraindo nomes e médias para gerar vetores individuais para os dados do gráfico
+    const descricaoMov = dadosEstoqueMov.map(d => d.descricao)
+    const estoquemov = dadosEstoqueMov.map(d => d.estoque)
+            const pieCtx = document.getElementById('linhaEstoque').getContext('2d');
+            new Chart(pieCtx, {
+                type: 'line',
+                data: {
+                    labels: descricaoMov, // Definindo os rótulos para o gráfico
+                    datasets: [{
+                        label: 'Por Descrição',
+                        data: estoquemov, // Passando os dados corretos
+                        backgroundColor: ['#2fff00', '#1c9a00', '#0d4700'], // Cores para cada segmento
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true }, // Exibe a legenda
+                        tooltip: { enabled: true } // Ativa os tooltips
+                    }
+                }
+            });
+        </script>
+    </body>
+    <%- include('../includes/footer.ejs') %>

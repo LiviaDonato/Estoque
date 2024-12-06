@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Caveat:wght@400..700&family=Roboto+Slab:wght@100..900&family=Shadows+Into+Light&display=swap');
+
+*{
+    font-family: Roboto Slab;
+}
+
+.logo{
+    width: 70px;
+    object-fit: cover;
+}
+.footer{
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    bottom: 0;
+    text-align: center;
+}
+header{
+  width: 100%;
+  position: fixed;
+  z-index: 5;
+}
+main{
+  padding-top: 100px;
+}
+.cor{
+    background: rgb(5,5,5);
+background: linear-gradient(90deg, rgba(5,5,5,1) 35%, rgba(69,69,69,1) 100%) !important;
+}
+
+.atras{
+    background: rgb(5,5,5);
+background: linear-gradient(90deg, rgba(5,5,5,1) 35%, rgba(69,69,69,1) 100%) !important;
+}
+
+.letra{
+    font-size: 20px;
+}
+
+.cards{
+    height: 400px;
+    width: 300px;
+}
+.cards1{
+    height: 370px;
+    width: 300px;
+}
+.cards2{
+    height: 370px;
+    width: 300px;
+}
+
+.bEx{
+    background: rgb(5,5,5);
+background: linear-gradient(90deg, rgba(5,5,5,1) 0%, rgba(255,0,0,1) 100%);
+}
+
+.bAdi{
+    background: rgb(5,5,5);
+background: linear-gradient(90deg, rgba(5,5,5,1) 0%,  #26b800 100%);
+}
+
+.bVer{
+    background: rgb(5,5,5);
+background: linear-gradient(90deg, rgba(5,5,5,1) 0%, #26b800 100%);
+}
+body{
+    background-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.imdepa.com.br%2Fagricultura-de-precisao%2F&psig=AOvVaw2YtrSQvLt1iy71HomH7O4y&ust=1731153413445000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKij-JPXzIkDFQAAAAAdAAAAABAu);
+}
+
+
+.dados-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .dados-table thead {
+    background: rgb(38,184,0);
+background: linear-gradient(90deg, rgba(38,184,0,1) 0%, rgba(0,92,15,1) 100%);
+    color: #ffffff;
+  }
+  
+  .dados-table th,
+  .dados-table td {
+    padding: 12px 15px;
+    /* border: 1px solid #ddd; */
+    text-align: left;
+  }
+  
+  .dados-table tr:nth-child(even) {
+    background-color: #282828;
+  }
+  
+  .dados-table td a,
+  .dados-table td form {
+    display: inline-block;
+  }
+  
+  /* Estilo dos botões */
+  .btn {
+    padding: 8px 12px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-edit {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .btn:hover {
+    opacity: 0.8;
+  }
+  
+  .form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .form-group input:focus {
+    border-color: #007bff;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    margin-left: 10px; 
+  }
+  
+  .form-consulta{
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .form-consulta input, .form-consulta select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* estilos da paginação */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .foto{
+    width: 170px;
+    height: 100px;
+  }
+
+  .card-dec {
+    border-left: 5px solid rgb(32, 177, 0);
+  }
+
+  .btamanho{
+    height: 1%;
+  }
+
+  .nav-link.active{
+    background-color: black !important; 
+  }
+
+  .img-fluid{
+    width: 150px;
+    height: 120px;
+  }
+  .imagem{
+    width: 100%;
+    height: 650px;
+  }
+
+  .fConta{
+    width: 210px;
+    height: 120px;
+  }

@@ -1,0 +1,52 @@
+<body class="atras text-white">
+    <%- include('../includes/header.ejs', {titulo: 'Lista de Movimentações'}) %>
+<body>
+    <main>
+        
+        <h2 class="text-center">Histórico das Movimentações de <%= nomeUsuario %></h2>
+        <% if (typeof mensagem != 'undefined') { %>
+            <p class="erro"><%= mensagem %></p>
+        <% } %>
+        <div class="col-12">
+            <form action="/movimentacoes/" method="get" class="d-flex justify-content-center gap-3">
+                <input type="text" class="form-control w-25" name="busca" placeholder="Buscar movimentação" value="<%=busca%>">
+                <button type="submit" class="w-10 btn btn-primary bVer border-black">Buscar</button>
+                <select class="form-control w-25" name="ordenar" onchange="this.form.submit()" class="w-50">
+                    <option value="tipo_movimentacao" <%= ordenar == 'tipo_movimentacao' ? 'selected' : '' %>>Ordenar por Tipo de Movimentação</option>
+                    <option value="data_movimentacao" <%= ordenar == 'data_movimentacao' ? 'selected' : '' %>>Ordenar por Data de Movimentação</option>
+                    <option value="quantidade" <%= ordenar == 'quantidade' ? 'selected' : '' %>>Ordenar por Quantidade</option>
+                    <option value="descricao" <%= ordenar == 'descricao' ? 'selected' : '' %>>Ordenar por Descrição</option>
+                    <option value="nome_produto" <%= ordenar == 'nome_produto' ? 'selected' : '' %>>Ordenar por Produto</option>
+    
+
+                </select>
+            </form>
+        </div>
+        <table class="dados-table">
+            <thead class="bg-light">
+                <tr class="text-black">
+                    <th scope="col">Tipo de Movimentação</th>
+                    <th scope="col">Data de Movimentação</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let movimentacao of vetorDados) { %>
+                    <tr>
+                        <td><%= movimentacao.tipo_movimentacao %></td>
+                        <td><%= movimentacao.data %></td>
+                        <td><%= movimentacao.quantidade  %></td>
+                        <td><%= movimentacao.descricao  %></td>
+                        <td><%= movimentacao.nome_produto  %></td>
+                        <td><%= movimentacao.estoque  %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </main>
+</body>
+<%- include('../includes/footer.ejs') %>
+</body>

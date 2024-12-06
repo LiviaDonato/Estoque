@@ -1,0 +1,67 @@
+<body class="atras text-white">
+    <%- include('../includes/header.ejs', {titulo: 'Lista de Produtos'}) %>
+<body>
+    <main>
+        
+
+        
+        <h2 class="text-center">Lista de Produtos</h2>
+        <a href="/produtos/novo" class="btn btn-primary bVer border-black">Adicionar Produto</a>
+        <% if (typeof mensagem != 'undefined') { %>
+            <p class="erro"><%= mensagem %></p>
+        <% } %>
+        <div class="col-12">
+            <form action="/produtos/" method="get" class="d-flex justify-content-center gap-3">
+                <input type="text" class="form-control w-25" name="busca" placeholder="Buscar produto" value="<%= busca %>">
+                <button type="submit" class="w-10 btn btn-primary bVer border-black">Buscar</button>
+                <select class="form-control w-25" name="ordenar" onchange="this.form.submit()" class="w-50">
+                    <option value="nome_produto" <%= ordenar == 'nome_produto' ? 'selected' : '' %>>Ordenar por Produto</option>
+                <option value="nome_categoria" <%= ordenar == 'nome_categoria' ? 'selected' : '' %>>Ordenar por Categoria</option>
+                <option value="nome_categoria" <%= ordenar == 'nome_valor' ? 'selected' : '' %>>Ordenar por Valor</option>
+                </select>
+            </form>
+
+        <table class="dados-table">
+            <thead class="bg-light">
+                <tr class="text-black">
+                    <th scope="col">Imagem</th>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Estoque</th>
+                    <th scope="col">Estoque minimo</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let produto of vetorDados) { %>
+                    <tr>
+                        <td><img src="<%= produto.imagem %>" alt=""class="img-fluid"></td>
+                        <td><%= produto.nome_produto %></td>
+                        <td><%= produto.nome_categoria %></td>
+                        <td><%= produto.estoque %></td>
+                        <td><%= produto.estoque_minimo %></td>
+                        <td>R$ <%= produto.valor %></td>
+                        <td>
+                            <a href="/produtos/<%= produto.id_produto %>/editar" class="btn btn-primary bVer border-black"> Editar </a>
+                            <form action="/produtos/<%= produto.id_produto %>/deletar" method="post" onsubmit="return confirmDelete()">
+                                <button type="submit" class="btn btn-delete border-black text-white bEx">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <% if (pgAtual > 1) { %>
+                <a href="/produtos?pg=<%= pgAtual-1 %>">Anterior</a>
+            <% } %>
+            <span>Página <%= pgAtual %> de <%= totalPgs %></span>
+            <% if (pgAtual < totalPgs) { %>
+                <a href="/produtos?pg=<%= pgAtual+1 %>">Próxima</a>
+            <% } %>
+        </div>
+    </main>
+</body>
+<%- include('../includes/footer.ejs') %>
+</body>

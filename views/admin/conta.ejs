@@ -1,0 +1,14 @@
+<body class="atras">
+    <%- include('../includes/header.ejs', {titulo: 'Dashboard'}) %>
+<body>
+    <main class="text-center">
+        <img class="fConta" style="border-radius: 70%; width: 8%;" src="<%= fotoUsuario %>" alt="">
+        <a href="/usuarios/<%= id_usuario = idUsuario %>/dados" class="btn btn-primary bVer border-black"> Editar dados </a>
+        <h2 class="text-white">Bem vindo, <%= nomeUsuario %>!</h2>
+        <div>
+
+        </div>
+    </main>
+</body>
+<%- include('../includes/footer.ejs') %>
+</body>

@@ -1,0 +1,17 @@
+<body class="atras">
+    <%- include('../includes/header.ejs', {titulo: 'Editar Categoria'}) %>
+<body class="atras text-white">
+    <main>
+        <h2 class="text-white">Editando Categoria</h2>
+        <form action="/categorias/<%= categoria.id_categoria %>/editar" method="post" class="form">
+            <div class="form-group">
+                <label for="nome_categoria">Nome da categoria: </label>
+                <input type="text" id="nome_categoria" name="nome_categoria" value="<%= categoria.nome_categoria %>" required>
+            </div>
+            <button type="submit" class="btn btn-primary bAdi border-white"> Salvar Alterações </button>
+            <a href="/categorias" class="btn btn-secondary bEx border-white"> Cancelar </a>
+        </form>
+    </main>
+</body>
+<%- include('../includes/footer.ejs') %>
+</body>

@@ -1,0 +1,192 @@
+    <%- include('../includes/header.ejs', {titulo: 'Dashboard' }) %>
+        <main class="container-fluid">
+            <div class="bg-primary text-white text-center py-3 mb-4 bVer">
+                <h1>Dashboard - Gerenciamento de Estoque</h1>
+            </div>
+
+            <!-- Cards principais com valores  -->
+            <section class="row mb-4 text-center">
+                <!-- Card Total de Produtos  -->
+                <div class="col-md-2">
+                    <div class="card shadow-sm card-dec">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Produtos</h5>
+                            <p class="card-text display-4">
+                                <%= totalProdutos %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Total de categorias  -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm card-dec">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Categorias</h5>
+                            <p class="card-text display-4">
+                                <%= totalCategorias %>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Valor Total em Estoque  -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm card-dec">
+                        <div class="card-body">
+                            <h5 class="card-title">Valor Total em Estoque</h5>
+                            <p class="card-text display-4">
+                                R$<%= totalEstoque %>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Total de estoque minimo  -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm card-dec">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Estoque Minimo</h5>
+                            <p class="card-text display-4">
+                                <%= totalCategorias %>
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Seção dos graficos -->
+            <section class="row">
+                <!-- Grafico de barras -->
+                <div class="col-4">
+                    <div class="card shadow-sm border-black">
+                        <div class="card-header bVer text-white">
+                            Valor Estoque por Categoria
+                        </div>
+                        <div class="card-body">
+                            <canvas id="barrasEstoqueCategoria"></canvas>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grafico de barras -->
+                <div class="col-md-4 ">
+                    <div class="card shadow-sm border-black">
+                        <div class="card-header bVer text-white">
+                            Estoque Produtos
+                        </div>
+                        <div class="card-body">
+                            <canvas id="barrasEstoqueProduto"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+               
+                <!-- Grafico de pizza -->
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-black">
+                        <div class="card-header bVer text-white">
+                            Estoque Minimo
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pizzaEstoqueMinimo"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section> 
+        </main>
+
+        <script>
+            // Recebendo o vetor mediaDisciplinas com o resultado da consulta do Banco de Dados
+            const dadosEstoqueCategoria = <%- JSON.stringify(estoqueCategoria) %>;
+
+        // Extraindo nomes e médias para gerar vetores individuais para os dados do gráfico
+        const nomesCategorias = dadosEstoqueCategoria.map(d => d.nome_categoria)
+        const estoqueCategorias = dadosEstoqueCategoria.map(d => d.estoque_categoria)
+
+            // Bar Chart - Média de Notas por Disciplina
+            const barCtx = document.getElementById('barrasEstoqueCategoria').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: nomesCategorias,
+                    datasets: [{
+                        label: 'Por Categoria',
+                        data: estoqueCategorias,
+                        backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+
+            // Recebendo o vetor mediaDisciplinas com o resultado da consulta do Banco de Dados
+            const dadosEstoqueProduto = <%- JSON.stringify(estoqueProduto) %>;
+
+        // Extraindo nomes e médias para gerar vetores individuais para os dados do gráfico
+            const nomesProdutos = dadosEstoqueProduto.map(d => d.nome_produto)
+            const estoqueProdutos = dadosEstoqueProduto.map(d => d.estoque)
+
+            // Bar Chart - Média de Notas por Disciplina
+            const barCtxy = document.getElementById('barrasEstoqueProduto').getContext('2d');
+            new Chart(barCtxy, {
+                type: 'bar',
+                data: {
+                    labels: nomesProdutos,
+                    datasets: [{
+                        label: 'Por Produto',
+                        data: estoqueProdutos,
+                        backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+
+
+             // Recebendo os dados de estoque mínimo, maior que mínimo e menor que mínimo
+const estoqueMais = <%- JSON.stringify(estoqueMais) %>;
+const estoqueMinimo = <%- JSON.stringify(estoqueMinimo) %>;
+const estoqueMenos = <%- JSON.stringify(estoqueMenos) %>;
+
+// Criando o gráfico de pizza
+const pieCtx = document.getElementById('pizzaEstoqueMinimo').getContext('2d');
+new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Acima do Mínimo', 'No Mínimo', 'Abaixo do Mínimo'],
+        datasets: [{
+            data: [
+                estoqueMais,  // Total de produtos com estoque maior que o mínimo
+                estoqueMinimo, // Total de produtos com estoque igual ao mínimo
+                estoqueMenos // Total de produtos com estoque abaixo do mínimo
+            ],
+            backgroundColor: ['#15ff00', '#ffff00', '#ff0000'], // Cores para as partes do gráfico
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+        }
+    }
+});
+
+
+           
+        </script>
+
+<%- include('../includes/footer.ejs') %>
