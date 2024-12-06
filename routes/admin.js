@@ -23,7 +23,8 @@ router.get('/', async (req, res) => {
         estoqueProduto: estoqueP.rows, 
         estoqueMais: estoqueMais.rows[0].total_mais,
         estoqueMinimo: estoqueMin.rows[0].total_minimo,
-        estoqueMenos: estoqueMen.rows[0].total_menos
+        estoqueMenos: estoqueMen.rows[0].total_menos,
+        estoqueMinMenos: estoqueMinMenos.rows[0].total_minimo
     });
         
 })

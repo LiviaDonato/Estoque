@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express')
 const path = require('path');
 const session = require('express-session')
 const app = express()
+
 //Configurações
 app.set('views', path.join(__dirname, 'views')); // Configura o diretório das views
 app.set('view engine', 'ejs') //Configura o motor de templates para EJS

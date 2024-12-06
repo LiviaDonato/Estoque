@@ -12,8 +12,8 @@
                 <input type="text" class="form-control w-25" name="busca" placeholder="Buscar usuário" value="<%=busca%>">
                 <button type="submit" class="w-10 btn btn-primary bVer border-black">Buscar</button>
                 <select class="form-control w-25" name="ordenar" onchange="this.form.submit()" class="w-50">
-                    <option value="nome_categoria asc" <%= ordenar == 'nome_categoria asc' ? 'selected' : '' %>>Ordenar por nome</option>
-                    <option value="nome_categoria desc" <%= ordenar == 'nome_categoria desc' ? 'selected' : '' %>>Ordenar por usuário</option>
+                    <option value="nome" <%= ordenar == 'nome' ? 'selected' : '' %>>Ordenar por nome</option>
+                    <option value="usuario" <%= ordenar == 'usuario' ? 'selected' : '' %>>Ordenar por usuário</option>
                 </select>
             </form>
         </div>
